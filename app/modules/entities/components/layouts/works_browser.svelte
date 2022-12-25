@@ -38,7 +38,7 @@
         class="toggle-controls"
         on:click={() => wrapped = !wrapped}
         aria-controls="works-browser-controls"
-        >
+      >
         {#if showControls}
           {@html icon('caret-up')}
         {:else}
@@ -148,13 +148,24 @@
     }
   }
 
-  /* Very small screens */
-  @media screen and (max-width: $very-small-screen){
-    .wrapper:not(.unwrapped){
-      @include display-flex(column, center, stretch);
+  /* Smaller screens */
+  @media screen and (max-width: 450px){
+    .controls{
+      :global(.select-dropdown), :global(.dropdown-content), :global(.works-browser-text-filter){
+        margin: 0.5em;
+        width: 100%;
+      }
     }
     .wrapper{
+      &:not(.unwrapped){
+        @include display-flex(column, center, stretch);
+      }
       @include display-flex(column, center, space-between);
+      &.unwrapped{
+        .toggle-controls{
+          align-self: stretch;
+        }
+      }
     }
   }
 </style>
