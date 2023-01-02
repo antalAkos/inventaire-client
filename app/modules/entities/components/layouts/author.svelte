@@ -1,6 +1,6 @@
 <script>
   import Spinner from '#general/components/spinner.svelte'
-  import { getSubEntitiesSections } from '../lib/entities'
+  import { getSubEntitiesSections } from '#entities/components/lib/entities'
   import { byPublicationDate } from '#entities/lib/entities'
   import { omitClaims } from '#entities/components/lib/work_helpers'
   import { authorsProps, relativeEntitiesListsProps } from '#entities/components/lib/claims_helpers'
