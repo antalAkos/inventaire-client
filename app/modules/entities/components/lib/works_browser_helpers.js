@@ -3,18 +3,21 @@ import properties from '#entities/lib/properties'
 import { I18n } from '#user/lib/i18n'
 import { intersection, pluck, uniq } from 'underscore'
 
-export async function getWorksFacets ({ works, context }) {
+export function getWorksFacets ({ works, context }) {
   const contextProperties = facetsProperties[context]
   const { facets, facetsSelectedValues } = initialize({ contextProperties })
 
   const valuesUris = []
   works.forEach(setWorkFacets({ facets, valuesUris, contextProperties }))
+  removeFacetsWithNoKnownValue(facets)
+  return { valuesUris, facets, facetsSelectedValues }
+}
 
+export async function getFacetsSelectors (facetsObj) {
+  const { valuesUris, facets } = facetsObj
   const facetsEntitiesBasicInfo = await getBasicInfo(valuesUris)
-
   const facetsSelectors = getSelectorsOptions({ facets, facetsEntitiesBasicInfo })
-
-  return { facets, facetsEntitiesBasicInfo, facetsSelectedValues, facetsSelectors }
+  return { ...facetsObj, facetsEntitiesBasicInfo, facetsSelectors }
 }
 
 const initialize = ({ contextProperties }) => {
@@ -49,6 +52,15 @@ const setWorkFacets = ({ facets, valuesUris, contextProperties }) => work => {
   }
 }
 
+const removeFacetsWithNoKnownValue = facets => {
+  Object.keys(facets).forEach(prop => {
+    const facet = facets[prop]
+    if (notOnlyUnknownKey(facet)) delete facets[prop]
+  })
+}
+
+const notOnlyUnknownKey = facet => facet.unknown && Object.keys(facet).length === 1
+
 const getSelectorsOptions = ({ facets, facetsEntitiesBasicInfo }) => {
   const facetsSelectors = {}
   for (const [ property, worksUrisPerValue ] of Object.entries(facets)) {
@@ -58,7 +70,6 @@ const getSelectorsOptions = ({ facets, facetsEntitiesBasicInfo }) => {
         ...getOptions({ property, worksUrisPerValue, facetsEntitiesBasicInfo })
       ]
     }
-    facetSelector.disabled = hasNoKnownValue(facetSelector.options)
     facetsSelectors[property] = facetSelector
   }
   return facetsSelectors
@@ -69,10 +80,6 @@ const getOptions = ({ property, worksUrisPerValue, facetsEntitiesBasicInfo }) =>
   return Object.keys(worksUrisPerValue)
   .map(formatOption({ property, worksUrisPerValue, facetsEntitiesBasicInfo }))
   .sort(sortFn)
-}
-
-const hasNoKnownValue = options => {
-  return !options.some(option => option.value !== 'all' && option.value !== 'unknown')
 }
 
 async function getBasicInfo (uris) {
