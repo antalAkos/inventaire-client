@@ -34,7 +34,6 @@
   @import "#general/scss/utils";
   .label-wrapper{
     @include display-flex(row, center,space-between);
-    margin: 0.5em;
   }
 
   .left-section{
@@ -43,6 +42,7 @@
   h3{
     @include sans-serif;
     font-size: 1.1rem;
+    margin: 0;
   }
   a{
     @include shy;

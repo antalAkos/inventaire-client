@@ -59,7 +59,11 @@
             bind:flash
           />
           <WorksBrowserTextFilter bind:textFilterUris />
-          <SelectDropdown bind:value={displayMode} options={displayOptions} buttonLabel={I18n('display_mode')} />
+          <SelectDropdown
+            bind:value={displayMode}
+            options={displayOptions}
+            buttonLabel={I18n('display_mode')}
+          />
         </div>
       {/if}
     {/if}

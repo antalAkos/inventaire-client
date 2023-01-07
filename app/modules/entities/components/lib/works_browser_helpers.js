@@ -1,4 +1,4 @@
-import { getEntitiesAttributesByUris, getYearFromSimpleDay } from '#entities/lib/entities'
+import { getEntitiesAttributesByUris, getYearFromSimpleDay  } from '#entities/lib/entities'
 import properties from '#entities/lib/properties'
 import { I18n } from '#user/lib/i18n'
 import { intersection, pluck, uniq } from 'underscore'
@@ -200,4 +200,34 @@ export function getSelectedUris ({ works, facets, facetsSelectedValues }) {
 
 export const bySearchMatchScore = textFilterUris => (a, b) => {
   return textFilterUris.indexOf(a.uri) - textFilterUris.indexOf(b.uri)
+}
+
+export function isClaimLayout (layoutContext) {
+  return [ 'genre', 'subject', 'movement' ].includes(layoutContext)
+}
+
+const publicationDateOption = {
+  text: 'publication date',
+  value: 'byPublicationDate',
+}
+
+const popularityOption = {
+  text: 'popularity',
+  value: 'byPopularity',
+}
+
+// sorting options order matters
+let sortFnPerType = {
+  editions: {
+    byPublicationDate: publicationDateOption,
+    byPopularity: popularityOption,
+  },
+  works: {
+    byPublicationDate: publicationDateOption,
+    byPopularity: popularityOption,
+  },
+}
+
+export const getSortingOptionsByNames = (type, promiseArguments) => {
+  return sortFnPerType[type]
 }
