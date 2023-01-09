@@ -104,7 +104,10 @@
   class="works-browser-section"
   class:section-without-work={!anyWork}
 >
-  <div class="title-row">
+  <div
+    class="title-row"
+    class:empty={!label}
+  >
     {#if label}
       <SectionLabel
         {label}

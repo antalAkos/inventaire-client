@@ -216,6 +216,11 @@ const popularityOption = {
   value: 'byPopularity',
 }
 
+const serieOrdinalOption = {
+  text: 'serie ordinal',
+  value: 'bySerieOrdinal',
+}
+
 // sorting options order matters
 let sortFnPerType = {
   editions: {
@@ -223,6 +228,11 @@ let sortFnPerType = {
     byPopularity: popularityOption,
   },
   works: {
+    byPublicationDate: publicationDateOption,
+    byPopularity: popularityOption,
+  },
+  parts: {
+    bySerieOrdinal: serieOrdinalOption,
     byPublicationDate: publicationDateOption,
     byPopularity: popularityOption,
   },

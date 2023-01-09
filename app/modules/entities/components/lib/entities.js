@@ -18,7 +18,7 @@ const urisGetterByType = {
 
     const { parts } = await preq.get(app.API.entities.serieParts(uri))
     return [
-      { uris: pluck(parts, 'uri') },
+      { uris: pluck(parts, 'uri'), sortingType: 'parts' },
     ]
   },
   human: async entity => {
