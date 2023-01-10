@@ -60,8 +60,11 @@ const urisGetterByType = {
     const uris = await getReverseClaims(property, uri)
     const propLabel = inverseLabels[property] || ''
     const label = i18n(propLabel, { name: entityLabel })
+    let sortingType
+    if (property === 'wdt:P69') sortingType = null
+    else sortingType = 'works'
     return [
-      { label, uris },
+      { label, uris, sortingType },
     ]
   }
 }
