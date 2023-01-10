@@ -1,4 +1,5 @@
 <script>
+  import Spinner from '#general/components/spinner.svelte'
   import { icon } from '#lib/handlebars_helpers/icons'
   import { imgSrc } from '#lib/handlebars_helpers/images'
   import { truncateText } from '#lib/utils'
@@ -27,6 +28,9 @@
       <span class="count">({option.count})</span>
     {/if}
   </span>
+  {#await option.promise}
+    <Spinner />
+  {/await}
 </div>
 
 <style lang="scss">

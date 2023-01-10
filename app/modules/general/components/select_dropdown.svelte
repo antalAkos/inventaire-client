@@ -45,7 +45,7 @@
     buttonRole="listbox"
   >
     <div slot="button-inner">
-      <SelectDropdownOption option={currentOption} {withImage} />
+      <SelectDropdownOption option={currentOption} {withImage} promise={currentOption.promise} />
       {#if resetValue && value !== resetValue}
         <button
           class="reset"
@@ -63,7 +63,7 @@
             aria-selected={option.value === value}
             on:click={() => value = option.value}
           >
-            <SelectDropdownOption {option} {withImage} />
+            <SelectDropdownOption {option} {withImage} promise={option.promise} />
           </button>
         {/if}
       {/each}
