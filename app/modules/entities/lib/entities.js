@@ -116,7 +116,10 @@ export async function getEntitiesAttributesByUris ({ uris, attributes, lang, rel
 }
 
 export async function getAndAssignPopularity (entities) {
-  const uris = pluck(entities, 'uri')
+  const uris = []
+  entities.forEach(entity => {
+    if (entity.popularity === undefined) uris.push(entity.uri)
+  })
   if (!isNonEmptyArray(uris)) return entities
   // Limiting refresh to not overcrowd Wikidata
   const refresh = uris.length < 30
