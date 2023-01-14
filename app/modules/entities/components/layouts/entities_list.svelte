@@ -1,5 +1,6 @@
 <script>
   import { i18n } from '#user/lib/i18n'
+  import { flip } from 'svelte/animate'
   import EntityListRow from './entity_list_row.svelte'
   import WrapToggler from '#components/wrap_toggler.svelte'
   import EditionActions from './edition_actions.svelte'
@@ -17,7 +18,7 @@
 </script>
 <ul>
   {#each shownEntities as entity (entity.uri)}
-    <li>
+    <li animate:flip={{ duration: 300 }}>
       <EntityListRow
         {entity}
         {relatedEntities}
