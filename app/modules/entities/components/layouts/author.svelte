@@ -72,39 +72,41 @@
         {/await}
       </div>
     </div>
-    <MissingEntitiesMenu
-      waiting={waitingForSubEntities}
-      questionText="A series or a work by this author is missing in the common database?"
-      {createButtons}
-    />
-    <div class="relatives-lists">
-      <RelativeEntitiesList
-        {entity}
-        claims={entity.claims['wdt:P737']}
-        label={i18n('authors_or_works_influencing_author', { name: entity.label })}
+    {#if sections}
+      <MissingEntitiesMenu
+        waiting={waitingForSubEntities}
+        questionText="A series or a work by this author is missing in the common database?"
+        {createButtons}
       />
-      <RelativeEntitiesList
-        {entity}
-        property="wdt:P737"
-        label={i18n('authors_influenced_by', { name: entity.label })}
-      />
-      <RelativeEntitiesList
-        {entity}
-        property="wdt:P921"
-        label={i18n('works_about_entity', { name: entity.label })}
-      />
-      <RelativeEntitiesList
-        {entity}
-        property={[ 'wdt:P2679', 'wdt:P2680' ]}
-        label={i18n('editions_prefaced_or_postfaced_by_author', { name: entity.label })}
-      />
-      <RelativeEntitiesList
-        {entity}
-        property="wdt:P655"
-        label={i18n('editions_translated_by_author', { name: entity.label })}
-      />
-    </div>
-    <HomonymDeduplicates {entity} />
+      <div class="relatives-lists">
+        <RelativeEntitiesList
+          {entity}
+          claims={entity.claims['wdt:P737']}
+          label={i18n('authors_or_works_influencing_author', { name: entity.label })}
+        />
+        <RelativeEntitiesList
+          {entity}
+          property="wdt:P737"
+          label={i18n('authors_influenced_by', { name: entity.label })}
+        />
+        <RelativeEntitiesList
+          {entity}
+          property="wdt:P921"
+          label={i18n('works_about_entity', { name: entity.label })}
+        />
+        <RelativeEntitiesList
+          {entity}
+          property={[ 'wdt:P2679', 'wdt:P2680' ]}
+          label={i18n('editions_prefaced_or_postfaced_by_author', { name: entity.label })}
+        />
+        <RelativeEntitiesList
+          {entity}
+          property="wdt:P655"
+          label={i18n('editions_translated_by_author', { name: entity.label })}
+        />
+      </div>
+      <HomonymDeduplicates {entity} />
+    {/if}
   </div>
 </BaseLayout>
 
