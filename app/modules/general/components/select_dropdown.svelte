@@ -28,7 +28,7 @@
     e.preventDefault()
   }
 
-  const optionPlaceholder = { value: 'all', text: I18n('loading') }
+  const optionPlaceholder = { value: 'all', text: I18n('all') }
   $: currentOption = options?.find(option => option.value === value) || optionPlaceholder
 
   function selectNext (indexIncrement) {
