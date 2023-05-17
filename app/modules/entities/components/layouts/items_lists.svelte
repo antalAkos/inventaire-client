@@ -11,13 +11,12 @@
   const dispatch = createEventDispatcher()
   const bubbleUpComponentEvent = BubbleUpComponentEvent(dispatch)
 
-  export let editionsUris, itemsByEditions, mapWrapperEl, itemsListsWrapperEl
-  export let allItems
+  export let editionsUris, itemsByEditions, mapWrapperEl, itemsListsWrapperEl, allItems, waitingForItems
   // showMap is false to be able to mount ItemsByCategories
   // to set initialBounds before mounting ItemsMap
   export let showMap = false
+
   let itemsOnMap
-  let waitingForItems
 
   let fetchedEditionsUris = []
   const getItemsByCategories = async () => {

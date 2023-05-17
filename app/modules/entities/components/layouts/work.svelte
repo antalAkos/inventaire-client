@@ -35,6 +35,7 @@
   let publishersByUris
   let allItems
   let itemsByEditions = {}
+  let waitingForItems
 
   setContext('work-layout:filters-store', writable({}))
 
@@ -121,6 +122,7 @@
             {initialEditions}
             bind:editions
             bind:itemsByEditions
+            {waitingForItems}
           />
         {/await}
       </div>
@@ -133,6 +135,7 @@
             bind:showMap
             bind:allItems
             bind:itemsByEditions
+            bind:waitingForItems
             bind:mapWrapperEl
             bind:itemsListsWrapperEl
             on:showMapAndScrollToMap={showMapAndScrollToMap}

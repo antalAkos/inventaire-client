@@ -1,6 +1,6 @@
 import {
   getEntitiesAttributesByUris, getYearFromSimpleDay,
-  byPublicationDate, byPopularity, bySerieOrdinal
+  byPublicationDate, byPopularity, bySerieOrdinal, byItemsOwnersCount
 } from '#entities/lib/entities'
 import properties from '#entities/lib/properties'
 import { I18n } from '#user/lib/i18n'
@@ -227,11 +227,18 @@ const serieOrdinalOption = {
   sortFunction: bySerieOrdinal
 }
 
+const itemsOwnersCountOption = {
+  text: 'users in your network',
+  value: 'byItemsOwnersCount',
+  sortFunction: byItemsOwnersCount
+}
+
 // sorting options order matters
 let sortFunctionPerType = {
   editions: {
     byPopularity: popularityOption,
     byPublicationDate: publicationDateOption,
+    byItemsOwnersCount: itemsOwnersCountOption
   },
   works: {
     byPublicationDate: publicationDateOption,

@@ -5,6 +5,7 @@ import getBestLangValue from './get_best_lang_value.js'
 import getOriginalLang from './get_original_lang.js'
 import { forceArray } from '#lib/utils'
 import { chunk, compact, pluck } from 'underscore'
+import { getUsersSizePerEdition } from '#entities/components/lib/edition_action_helpers'
 
 export async function getReverseClaims (property, value, refresh, sort) {
   const { uris } = await preq.get(app.API.entities.reverseClaims(property, value, refresh, sort))
@@ -200,6 +201,11 @@ export const byPublicationDate = (a, b) => {
 export function byPopularity (a, b) {
   // Descending order
   return parseInt(b.popularity || 0) - parseInt(a.popularity || 0)
+}
+
+export function byItemsOwnersCount (a, b) {
+  // Descending order
+  return parseInt(getUsersSizePerEdition(b.items) || 0) - parseInt(getUsersSizePerEdition(a.items) || 0)
 }
 
 export const getPublicationYear = entity => {
