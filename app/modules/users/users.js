@@ -12,6 +12,7 @@ export default {
         'u(sers)(/)': 'showHome',
         'u(sers)/network(/)': 'showNetworkHome',
         'u(sers)/public(/)': 'showPublicHome',
+        'u(sers)/last(/)': 'showLastUsers',
         'u(sers)/:id(/)': 'showUserProfile',
         'u(sers)/:id/inventory/:uri(/)': 'showUserItemsByEntity',
         'u(sers)/:id/inventory(/)': 'showUserInventory',
@@ -66,6 +67,13 @@ export async function showUserListings (user) {
   return showUsersHome({ user, profileSection: 'listings' })
 }
 
+async function showLastUsers () {
+  if (!app.request('require:admin:access')) return
+  const { default: LastUsers } = await import('#users/components/last_users.svelte')
+  app.layout.showChildComponent('main', LastUsers)
+  app.navigate('users/last', { metadata: { title: i18n('Last users') } })
+}
+
 const API = {
   showHome,
   showNetworkHome () {
@@ -84,6 +92,7 @@ const API = {
     const filter = app.request('querystring:get', 'filter')
     showUserContributions(idOrUsername, filter)
   },
+  showLastUsers,
 }
 
 export async function showUsersHome ({ user, group, section, profileSection }) {
